@@ -1,0 +1,50 @@
+[
+  {
+    "title": "Event 1",
+    "URL": "/",
+    "description": "Just an event",
+    "startDate": "2023-02-17T14:00:00",
+    "endDate": "2023-02-17T15:00:00",
+    "tags": ["tag1", "tag3"]
+  },
+  {
+    "title": "Event 2",
+    "URL": "/",
+    "description": "Just an event",
+    "startDate": "2023-02-17T14:00:00",
+    "endDate": "2023-02-17T17:00:00",
+    "tags": ["tag1", "tag5"]
+  },
+  {
+    "title": "Event 3",
+    "URL": "/",
+    "description": "Just an event",
+    "startDate": "2023-02-17T14:00:00",
+    "endDate": "2023-02-17T17:00:00",
+    "tags": ["tag5", "tag3"]
+  },
+  {
+    "title": "Event 4",
+    "URL": "/",
+    "description": "Just an event",
+    "startDate": "2023-02-17T14:00:00",
+    "endDate": "2023-02-17T17:00:00",
+    "tags": ["tag1", "tag3", "tag5"]
+  },
+  {
+    "title": "Event 5",
+    "URL": "/",
+    "description": "Just an event",
+    "startDate": "2023-02-17T14:00:00",
+    "endDate": "2023-02-17T17:00:00",
+    "tags": ["tag1", "tag2"]
+  },
+  {
+    "title": "Event 6",
+    "URL": "/",
+    "description": "Just an event",
+    "startDate": "2023-02-17T14:00:00",
+    "endDate": "2023-02-17T17:00:00",
+    "tags": ["tag1", "tag3"]
+  }
+]

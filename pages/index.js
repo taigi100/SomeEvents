@@ -1,64 +1,97 @@
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
+import tags from '../public/tags.json';
+import events from '../public/events.json';
+import { Chip } from '@mui/material';
+import React from 'react';
 
 export default function Home() {
+  const [tagState, setTagState] = React.useState(Array(tags.length).fill("outlined"));
+  const [myEvents, setMyEvents] = React.useState(events);
+
+  let handleChipClick = (i) => {
+    const newStates = tagState.map((c,j) => {
+      if (j === i) {
+        return c === "filled" ? "outlined" : "filled";
+      } else {
+        return c;
+      }
+    });
+    setTagState(newStates);
+    parseEvents(newStates);
+  };
+
+  let parseEvents = (states) => {
+    if(states.includes("filled") === false) {
+      setMyEvents(events);
+      return;
+    }
+    const newEvents = [];
+    for(let i = 0; i < states.length; i++) {
+      if(states[i] === "filled") {
+        for(let j = 0; j < events.length; j++) {
+          if(events[j].tags.includes(tags[i])) {
+            newEvents.push(events[j]);
+          }
+        }
+      }
+    }
+    setMyEvents(newEvents);
+  };
+
   return (
     <div className={styles.container}>
       <Head>
-        <title>Create Next App</title>
+        <title>Timisoara Events</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+          Events
         </h1>
-
-        <p className={styles.description}>
-          Get started by editing <code>pages/index.js</code>
-        </p>
-
+        <div className={styles.description}>
+          Select tags of interest
+        </div>
+        <div className={styles.chipContainer}>
+          {
+            tags.map((tag, i) => {
+              return (
+                <Chip
+                  variant={tagState[i]}
+                  onClick={() => handleChipClick(i)}
+                  label={tags[i]}></Chip>
+              )
+            })
+          }
+        </div>
         <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+        {myEvents.map((event, i) => {
+          return (
+            <a href={event.URL} className={styles.card}>
+              <h3>{event.title} &rarr;</h3>
+              <p className={styles.pdate}>{event.startDate} &rarr; {event.endDate}</p>
+              <div className={styles.chipContainer}>
+              {
+                event.tags.map((tag, i) => {
+                  return (
+                    <Chip
+                      label={tag}></Chip>
+                  )
+                })
+              }
+              </div>
+              <p>{event.description}</p>
+            </a>  
+          )
+        })}
         </div>
       </main>
-
-      <footer>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel" className={styles.logo} />
-        </a>
-      </footer>
 
       <style jsx>{`
         main {

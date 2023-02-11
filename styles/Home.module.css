@@ -89,3 +89,8 @@
     flex-direction: column;
   }
 }
+
+.pdate {
+  font-size: .9rem !important;
+  margin-bottom: 10px !important;
+}
